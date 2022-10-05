@@ -14,7 +14,7 @@
       <div class="mb-3">
         <label class="form-label">Country</label>
         <select class="form-control" name="country_id">
-        <option value="{{$state->id}}">{{ $state->Country->name ?? null}}</option>
+        <option value="{{$state->country_id}}">{{ $state->Country->name ?? null}}</option>
           @foreach (App\Models\Country::get() as $item)
               <option value="{{$item->id}}">{{$item->name}}</option>
           @endforeach

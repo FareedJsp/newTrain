@@ -21,8 +21,14 @@
             <a class="dropdown-item" href="/statedata">Data 2</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a href="/city" class="nav-link text-white">City</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            City
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/city">Data 1</a>
+            <a class="dropdown-item" href="/citydata">Data 2</a>
+          </div>
         </li>
 
       <li class="nav-item">

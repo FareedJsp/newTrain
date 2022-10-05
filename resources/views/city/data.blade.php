@@ -5,10 +5,10 @@
       <div class="card-header">
             <div class="row">
                   <div class="col">
-                        <h3 class="card-title">State Data</h3>
+                        <h3 class="card-title">City Data</h3>
                   </div>
                   <div class="col">
-                        <a href="/createstate" class="btn btn-outline-secondary mb-3">Add State</a>
+                        <a href="/createcity" class="btn btn-outline-secondary mb-3">Add City</a>
 
                         @if ($message = Session::get('success'))
                         <div class="alert alert-success">
@@ -32,32 +32,40 @@
       <tr>
         <th>No</th>
         <th>State</th>
-        <th>Country</th>
-        <th>Action(s)</th>
+        <th>City</th>
       </tr>
 
       </thead>
 
       <tbody>
 
-        @php
-          $no = 1
+            @php
+            $no = 1
         @endphp
-
-        @foreach ($state as $row)
-
-          <tr>
-            <td> {{ $no++ }} </td>
-            <td> {{ $row->name }} </td>
-            <td> {{ $row->Country->name ?? null}} </td>
+  
+          @foreach (App\Models\State::get() as $row)
+  
+            <tr>
+              <td> {{ $no++ }} </td>
+              <td> {{ $row->name }} </td>
               <td>
-                  <a href="/showcity/{{$row->id}}" class="btn btn-outline-primary">Show City</i></a>
-                  <a href="/editstate/{{$row->id}}" class="btn btn-outline-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                  <a href="/deletestate/{{$row->id}}" class="btn btn-outline-danger" onclick="return confirm('Are you sure to delete data')"><i class="fa-solid fa-trash"></i></a>
+                  @php
+  
+                      $x = $row->id;
+  
+                      $tito = DB::table('cities')->where('state_id', $x)->pluck('name');
+  
+                  @endphp
+  
+                    @foreach ($tito as $row0)
+  
+                          {{$row0. ", "}}
+  
+                    @endforeach
               </td>
-          </tr>
-
-      @endforeach
+              </tr>
+  
+        @endforeach
 
       </tbody>
 

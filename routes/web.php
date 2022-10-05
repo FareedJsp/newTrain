@@ -53,6 +53,7 @@ Route::get('/showcity/{id}',[StateController::class,'show']);
 //city
 
 Route::get('/city',[CityController::class,'index'])->name('city');
+Route::get('/citydata',[CityController::class,'indextwo']);
 Route::get('/createcity',[CityController::class,'create']);
 Route::post('/insertcity',[CityController::class,'store']);
 Route::get('/editcity/{id}',[CityController::class,'edit']);

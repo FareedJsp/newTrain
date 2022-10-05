@@ -49,6 +49,7 @@ class StateController extends Controller
         $data -> name = $request->name;
         $data -> country_id = $request->country_id;
 
+        //return $data;
         $data->save();
 
         return redirect()->route ('state')->with('success', 'State has been edited successfully.');
@@ -64,9 +65,11 @@ class StateController extends Controller
 
     public function show($id)
     {
-        $id = $id;
 
-        $state = City::find($id);
+        $state = City::where("state_id",$id)->get();
+
+        // return $state;
+        
         return view('state.showcity', compact('state'));
     }
 

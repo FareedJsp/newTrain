@@ -19,13 +19,20 @@ echo is_array($kola);
 
 echo count($kola);
 
+echo "<br>";
+
 @endphp
 
-foreach($age as $x=>$x_value)
+{{$data. " "}}
+
+@foreach($data as $x=>$x_value)
   {
+  @php
   echo "Key=" . $x . ", Value=" . $x_value;
   echo "<br>";
+  @endphp
   }
+@endforeach
   
 {{$coca}}
 {{App\Models\Country::get('name')}}

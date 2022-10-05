@@ -5,7 +5,7 @@
       <div class="card-header">
             <div class="row">
                   <div class="col">
-                        <h3 class="card-title">State Data</h3>
+                        <h3 class="card-title">State Data : Showing All State of Particular Country</h3>
                   </div>
                   <div class="col">
                         <a href="/createstate" class="btn btn-outline-secondary mb-3">Add State</a>
@@ -63,6 +63,7 @@
 
                   @endforeach
             </td>
+            </tr>
 
       @endforeach
 

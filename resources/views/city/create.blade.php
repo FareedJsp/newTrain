@@ -1,37 +1,102 @@
 @extends('layout.main')
 @section('content')
 
-<form method="post" action="/insertcity" enctype="multipart/form-data">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5 mx-auto">
 
-  @csrf
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-6">
+                <form method="post" action="/insertcity" enctype="multipart/form-data">
 
-      <h4 class="mb-3">Add City</h4>
+                  @csrf
 
-      <div class="mb-3">
-        <label class="form-label">State</label>
-        <select class="form-control" name="state_id">
-        <option value="">select state</option>
-          @foreach (App\Models\State::get() as $item)
-               <option value="{{$item->id}}">{{$item->name}}</option>
-          @endforeach
-        </select>
-      </div>
+                    <div class="form-group mb-3">
 
-        <div class="mb-3">
-          <label class="form-label">Name</label>
-          <input type="text" class="form-control" name="name">
+                      <label class="form-label">Pick Country and State</label>
+
+                                        <select name="" id="country-dd" class="form-control">
+
+                            <option value="">Select Country</option>
+
+                            @foreach ($countries as $item)
+                                <option value="{{$item->id}}">
+                                    {{$item->name}}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group mb-3">
+
+                        <select name="state_id" id="state-dd" class="form-control">
+                            <option value="">Select State</option>
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Add City</label>
+                      <input type="text" class="form-control" name="name">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btns">Submit</button>
+
+                </form>
+
+            </div>
         </div>
-
-        <button type="submit" class="btn btn-primary btns">Submit</button>
-
-        
     </div>
-  </div>
-</div>
-</form>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#country-dd').on('change', function () {
+                var idCountry = this.value;
+                $("#state-dd").html('');
+                $.ajax({
+                    url: "{{url('api/fetch-states')}}",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#state-dd').html('<option value="">Select State</option>');
+                        $.each(result.states, function (key, value) {
+                            $("#state-dd").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+                        $('#city-dd').html('<option value="">Select City</option>');
+                    }
+                });
+            });
+            $('#state-dd').on('change', function () {
+                var idState = this.value;
+                $("#city-dd").html('');
+                $.ajax({
+                    url: "{{url('api/fetch-cities')}}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        $('#city-dd').html('<option value="">Select City</option>');
+                        $.each(res.cities, function (key, value) {
+                            $("#city-dd").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection
